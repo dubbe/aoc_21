@@ -6,13 +6,10 @@ import (
 )
 
 func getSolutionPart1(input []int) (increases int) {
-	lastValue := input[0]
 	for i := 1; i < len(input); i++ {
-		value := input[i]
-		if value > lastValue {
+		if input[i] > input[i-1] {
 			increases++
 		}
-		lastValue = value
 	}
 	return
 }
@@ -25,6 +22,15 @@ func getSolutionPart2(input []int) (increases int) {
 			increases++
 		}
 		lastWindow = currentWindow
+	}
+	return
+}
+
+func getSolutionPart2Tobe(input []int) (increases int) {
+	for i := 3; i < len(input); i++ {
+		if input[i] > input[i-3] {
+			increases++
+		}
 	}
 	return
 }
