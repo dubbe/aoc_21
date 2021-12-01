@@ -7,7 +7,7 @@ import (
 
 func getSolutionPart1(input []int) (increases int) {
 	lastValue := input[0]
-	for i:=1; i < len(input);i++ {
+	for i := 1; i < len(input); i++ {
 		value := input[i]
 		if value > lastValue {
 			increases++
@@ -18,8 +18,8 @@ func getSolutionPart1(input []int) (increases int) {
 }
 
 func getSolutionPart2(input []int) (increases int) {
-	lastWindow := input[2] + input[1] + input [0]
-	for i:=3; i < len(input);i++ {
+	lastWindow := input[2] + input[1] + input[0]
+	for i := 3; i < len(input); i++ {
 		currentWindow := input[i] + input[i-1] + input[i-2]
 		if currentWindow > lastWindow {
 			increases++
