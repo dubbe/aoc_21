@@ -1,17 +1,13 @@
 package main
 
 import (
-	"io/ioutil"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 )
 
 func TestAOC_getSolutionPart1(t *testing.T) {
-	inputBytes, err := ioutil.ReadFile("input_test.txt")
-	assert.Nil(t, err)
-	
-	input, err := parseInput(string(inputBytes))
+	input, err := readInts("input_test.txt")
 	assert.Nil(t, err)
 
 	expectedSolution := 7
@@ -21,10 +17,7 @@ func TestAOC_getSolutionPart1(t *testing.T) {
 }
 
 func TestAOC_getSolutionPart2(t *testing.T) {
-	inputBytes, err := ioutil.ReadFile("input_test.txt")
-	assert.Nil(t, err)
-	
-	input, err := parseInput(string(inputBytes))
+	input, err := readInts("input_test.txt")
 	assert.Nil(t, err)
 
 	expectedSolution := 5

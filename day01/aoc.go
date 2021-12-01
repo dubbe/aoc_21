@@ -2,10 +2,7 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
-	"strconv"
-	"strings"
 )
 
 func getSolutionPart1(input []int) int {
@@ -36,32 +33,10 @@ func getSolutionPart2(input []int) int {
 	return increases
 }
 
-func parseInput(input string) ([]int, error) {
-	var ints []int
-
-	lines := strings.Split(strings.TrimSpace(input), "\n")
-
-	for _, line := range lines {
-		i, err := strconv.Atoi(line)
-		if err != nil {
-			return nil, err
-		}
-
-		ints = append(ints, i)
-	}
-
-	return ints, nil
-}
-
 func main() {
-	inputBytes, err := ioutil.ReadFile("input.txt")
+	input, err := readInts("input.txt")
 	if err != nil {
-		panic("couldn't read input")
-	}
-
-	input, err := parseInput(string(inputBytes))
-	if err != nil {
-		panic("couldn't parse input")
+		panic("could not read file")
 	}
 
 	part := os.Getenv("part")
