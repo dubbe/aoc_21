@@ -25,3 +25,19 @@ func TestAOC_getSolutionPart2(t *testing.T) {
 	actualSolution := getSolutionPart2(input)
 	assert.Equal(t, expectedSolution, actualSolution)
 }
+
+func BenchmarkPart1(b *testing.B) {
+	// run the Fib function b.N times
+	for n := 0; n < b.N; n++ {
+		input, _ := readInts("input.txt")
+		getSolutionPart1(input)
+	}
+}
+
+func BenchmarkPart2(b *testing.B) {
+	// run the Fib function b.N times
+	for n := 0; n < b.N; n++ {
+		input, _ := readInts("input.txt")
+		getSolutionPart2(input)
+	}
+}

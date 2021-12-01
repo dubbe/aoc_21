@@ -5,45 +5,38 @@ import (
 	"os"
 )
 
-func getSolutionPart1(input []int) int {
-	increases := 0
-	lastValue := 0
-	for _, value := range input {
+func getSolutionPart1(input []int) (increases int) {
+	lastValue := input[0]
+	for i:=1; i < len(input);i++ {
+		value := input[i]
 		if value > lastValue {
 			increases++
 		}
 		lastValue = value
 	}
-	return increases-1
+	return
 }
 
-func getSolutionPart2(input []int) int {
-	increases := 0
-	lastWindow := 0
-	for i, _ := range input {
-		if i < 3 {
-			continue
-		}
+func getSolutionPart2(input []int) (increases int) {
+	lastWindow := input[2] + input[1] + input [0]
+	for i:=3; i < len(input);i++ {
 		currentWindow := input[i] + input[i-1] + input[i-2]
 		if currentWindow > lastWindow {
 			increases++
 		}
 		lastWindow = currentWindow
 	}
-	return increases
+	return
 }
 
 func main() {
-	input, err := readInts("input.txt")
-	if err != nil {
+	if input, err := readInts("input.txt"); err != nil {
 		panic("could not read file")
-	}
-
-	part := os.Getenv("part")
-
-	if part == "part2" {
-		fmt.Println(getSolutionPart2(input))
 	} else {
-		fmt.Println(getSolutionPart1(input))
+		if os.Getenv("part") == "part2" {
+			fmt.Println(getSolutionPart2(input))
+		} else {
+			fmt.Println(getSolutionPart1(input))
+		}
 	}
 }
