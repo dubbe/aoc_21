@@ -3,34 +3,37 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
-	"math/big"
 	"os"
 	"strconv"
 	"strings"
 )
 
 func getSolutionPart1(input []int) int {
-	product := 0
-	for i, value := range input {
-		if big.NewInt(int64(value)).ProbablyPrime(0) {
-			product += value * i
+	increases := 0
+	lastValue := 0
+	for _, value := range input {
+		if value > lastValue {
+			increases++
 		}
+		lastValue = value
 	}
-	return product
+	return increases-1
 }
 
 func getSolutionPart2(input []int) int {
-	product := 0
-	for i, value := range input {
-		if !big.NewInt(int64(value)).ProbablyPrime(0) {
-			if i%2==0 {
-				product += value
-			} else {
-				product -= value
-			}
+	increases := 0
+	lastWindow := 0
+	for i, _ := range input {
+		if i < 3 {
+			continue
 		}
+		currentWindow := input[i] + input[i-1] + input[i-2]
+		if currentWindow > lastWindow {
+			increases++
+		}
+		lastWindow = currentWindow
 	}
-	return product
+	return increases
 }
 
 func parseInput(input string) ([]int, error) {
@@ -61,7 +64,6 @@ func main() {
 		panic("couldn't parse input")
 	}
 
-	fmt.Println("Go")
 	part := os.Getenv("part")
 
 	if part == "part2" {
