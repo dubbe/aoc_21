@@ -8,8 +8,7 @@ import (
 )
 
 func getSolutionPart1(input []string) int {
-	depth := 0
-	horizontal := 0
+	depth, horizontal := 0, 0
 	for _, v := range input {
 		operations := strings.Split(v, " ")
 		i, err := strconv.Atoi(operations[1])
@@ -31,9 +30,7 @@ func getSolutionPart1(input []string) int {
 }
 
 func getSolutionPart2(input []string) (increases int) {
-	aim := 0
-	horizontal := 0
-	depth := 0
+	aim, horizontal, depth := 0, 0, 0
 	for _, v := range input {
 		operations := strings.Split(v, " ")
 		i, err := strconv.Atoi(operations[1])
@@ -43,7 +40,7 @@ func getSolutionPart2(input []string) (increases int) {
 		switch operations[0] {
 		case "forward":
 			horizontal += i
-			depth += aim*i
+			depth += aim * i
 		case "down":
 			aim += i
 		case "up":
