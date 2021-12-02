@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace day08
+namespace day01
 {
     class Program
     {

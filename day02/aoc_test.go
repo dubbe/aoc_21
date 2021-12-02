@@ -7,7 +7,7 @@ import (
 )
 
 func TestAOC_getSolutionPart1(t *testing.T) {
-	input, err := readStrings("input_test.txt")
+	input, err := readStrings("input-test.txt")
 	assert.Nil(t, err)
 
 	expectedSolution := 150
@@ -17,7 +17,7 @@ func TestAOC_getSolutionPart1(t *testing.T) {
 }
 
 func TestAOC_getSolutionPart2(t *testing.T) {
-	input, err := readStrings("input_test.txt")
+	input, err := readStrings("input-test.txt")
 	assert.Nil(t, err)
 
 	expectedSolution := 900
