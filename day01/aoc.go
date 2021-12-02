@@ -15,19 +15,7 @@ func getSolutionPart1(input []int) (increases int) {
 }
 
 func getSolutionPart2(input []int) (increases int) {
-	lastWindow := input[2] + input[1] + input[0]
-	for i := 3; i < len(input); i++ {
-		currentWindow := input[i] + input[i-1] + input[i-2]
-		if currentWindow > lastWindow {
-			increases++
-		}
-		lastWindow = currentWindow
-	}
-	return
-}
-
-func getSolutionPart2Tobe(input []int) (increases int) {
-	for i := 3; i < len(input); i++ {
+	for i := 3; i < len(input); i++ { // kudos tobe!
 		if input[i] > input[i-3] {
 			increases++
 		}
