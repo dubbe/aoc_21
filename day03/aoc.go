@@ -21,7 +21,6 @@ func getSolutionPart1(input []string) int {
 		}
 	}
 
-
 	gammaString := ""
 	episolonString := ""
 	n := 0
