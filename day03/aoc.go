@@ -27,11 +27,8 @@ func getSolutionPart1(input []string) int {
 	n := 0
 	for n < len(flippedStrings) {
 		bit := flippedStrings[n]
-		fmt.Printf("%s \n", bit)
 		ones := strings.Count(bit, "1")
 		zeroes := strings.Count(bit, "0")
-
-		fmt.Printf("ones: %d, zeroes: %d\n", ones, zeroes)
 
 		if ones > zeroes {
 			gammaString += "1"
@@ -42,9 +39,8 @@ func getSolutionPart1(input []string) int {
 		}
 		n++
 	}
-	fmt.Printf("%s, %s \n", gammaString, episolonString)
+
 	gamma, err := strconv.ParseInt(gammaString, 2, 64)
-	
 	if err != nil {
 		fmt.Println(err)
 	} 
@@ -54,9 +50,7 @@ func getSolutionPart1(input []string) int {
 		fmt.Println(err)
 	}
 	
-	fmt.Printf("%d, %d\n", gamma, episolon)
-	result := gamma * episolon
-	return int(result)
+	return int(gamma * episolon)
 }
 
 func getSolutionPart2(input []string) (increases int) {
@@ -75,12 +69,10 @@ func getSolutionPart2(input []string) (increases int) {
 	oxygen := input
 	
 	for i, _ := range input[0] {
-		most := getMostInColumn(oxygen, i)
-		fmt.Printf("most: %s \n", most)
 		newList := []string{}
-		fmt.Printf("input[%d]: %s, most: %s \n", i, input[i], most)
+		most := getMostInColumn(oxygen, i)
+		
 		for _, in := range oxygen {
-			fmt.Printf("most: %s, in: %s, i: %d, in[%d]: %s\n", most, in, i, i, string(in[i]))
 			if most == string(in[i]) {
 				newList = append(newList, in)
 			}
@@ -88,18 +80,13 @@ func getSolutionPart2(input []string) (increases int) {
 		oxygen = newList
 	}
 
-	fmt.Printf("oxygen: %v \n", oxygen)
-
-
 	co2 := input
 	
 	for i, _ := range input[0] {
 		most := getMostInColumn(co2, i)
-		fmt.Printf("most: %s \n", most)
 		newList := []string{}
-		fmt.Printf("input[%d]: %s, most: %s \n", i, input[i], most)
+
 		for _, in := range co2 {
-			fmt.Printf("most: %s, in: %s, i: %d, in[%d]: %s\n", most, in, i, i, string(in[i]))
 			if most != string(in[i]) {
 				newList = append(newList, in)
 			}
@@ -109,11 +96,6 @@ func getSolutionPart2(input []string) (increases int) {
 			break;
 		}
 	}
-
-	fmt.Printf("oxygen: %v \n", oxygen)
-	fmt.Printf("co2: %v \n", co2)
-
-	// fmt.Printf("mostInColumn: %s \n", mostInColumn)
 
 	o, err := strconv.ParseInt(oxygen[0], 2, 64)
 	if err != nil {
@@ -125,9 +107,7 @@ func getSolutionPart2(input []string) (increases int) {
 		fmt.Println(err)
 	}
 	
-	fmt.Printf("%d, %d\n", o, c)
-	result := o * c
-	return int(result)
+	return int(o * c)
 
 }
 
@@ -135,16 +115,13 @@ func getMostInColumn(inputs []string, position int) string {
 	zeroes := 0
 	ones := 0
 	for _, input := range inputs {
-
-		// fmt.Printf("input: %s, input[%d]: %s\n", input, position, string(input[position]))
-
 		if input[position] == '0' {
 			zeroes++
 		} else {
 			ones++
 		}
-
 	}
+
 	if ones >= zeroes {
 		return "1"
 	}
