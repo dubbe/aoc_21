@@ -11,7 +11,6 @@ func init() {
 	input, _ = readInput("input-test.txt")
 }
 
-
 func TestParseLine(t *testing.T) {
 	line := parseLines("1,1 -> 1,3")
 	assert.Len(t, line.points, 3)

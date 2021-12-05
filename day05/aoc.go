@@ -3,36 +3,23 @@ package main
 import (
 	"fmt"
 	"os"
-	"strconv"
-	"strings"
 )
 
 type Line struct {
 	points []Point
-	x1 int
-	x2 int
-	y1 int
-	y2 int
+	x1, x2, y1, y2 int
 }
 
 type Point struct {
-	x int
-	y int
+	x, y int
 }
 
 func parseLines(input string) Line {
-	startStop := strings.Split(input, " -> ")
-	x1y1 := strings.Split(startStop[0], ",")	
-	x2y2 := strings.Split(startStop[1], ",")
-
 	line := Line{
 		points: []Point{},
 	}
 
-	line.x1, _ = strconv.Atoi(x1y1[0])
-	line.y1, _ = strconv.Atoi(x1y1[1])
-	line.x2, _ = strconv.Atoi(x2y2[0])
-	line.y2, _ = strconv.Atoi(x2y2[1])
+	fmt.Sscanf(input, "%d,%d -> %d,%d", &line.x1, &line.y1, &line.x2, &line.y2)
 
 	// straight line
 	if line.x1 == line.x2 || line.y1 == line.y2 {
@@ -68,14 +55,15 @@ func parseLines(input string) Line {
 	} else {
 		// diagonal line
 		x:=line.x1
+		out:
 		for {
 			y:=line.y1
 			for {
 					point := Point{x: x, y: y}			
 					line.points = append(line.points, point)
 
-				if y == line.y2 {
-					break
+				if y == line.y2 && x == line.x2 {
+					break out
 				}
 
 				if line.y2 >= line.y1 {
@@ -90,11 +78,6 @@ func parseLines(input string) Line {
 					x--
 				}	
 			}
-
-			if x == line.x2 {
-				break
-			}
-			
 		}
 	}
 
@@ -109,29 +92,16 @@ func getSolutionPart1(input []string) int{
 		lines = append(lines, line)
 	}
 
-	pane := map[int]map[int]int{}
+	pane := map[Point]int{}
 	for _, line := range lines {
 		if line.x1 == line.x2 || line.y1 == line.y2 {
 			for _, p := range line.points {
-				if len(pane[p.x]) == 0 {
-					pane[p.x] = map[int]int{}
-				}
-				pane[p.x][p.y] += 1
+				pane[p] += 1
 			}
 		}
 	}
 
-	sum := 0
-	for _, x := range pane {
-		for _, y := range x {
-			if y > 1 {
-				sum++
-			}
-		}
- 	}
-
-
-	return sum
+	return getSum(pane)
 }
 
 func getSolutionPart2(input []string) int {
@@ -141,27 +111,22 @@ func getSolutionPart2(input []string) int {
 		lines = append(lines, line)
 	}
 
-	pane := map[int]map[int]int{}
+	pane := map[Point]int{}
 	for _, line := range lines {
 		for _, p := range line.points {
-			if len(pane[p.x]) == 0 {
-				pane[p.x] = map[int]int{}
-			}
-			pane[p.x][p.y] += 1
+			pane[p] += 1
 		}
 	}
+	return getSum(pane)
+}
 
-	sum := 0
-	for _, x := range pane {
-		for _, y := range x {
-			if y > 1 {
+func getSum(pane map[Point]int) (sum int) {
+	for _, x := range pane {	
+			if x > 1 {
 				sum++
 			}
-		}
  	}
-
-
-	return sum
+	 return
 }
 
 func main() {
