@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"os"
 	"sort"
 	"strconv"
@@ -18,8 +19,20 @@ func strToIntArr(s string) []int {
 	return res
 }
 
+func sum(array []int) int {  
+	result := 0  
+	for _, v := range array {  
+	 result += v  
+	}  
+	return result  
+ } 
+
+func calcMean(numbers []int) (int, int) {
+	mean := float64(sum(numbers))/float64(len(numbers))
+	return int(math.Floor(mean)), int(math.Ceil(mean))
+}
+
 func calcMedian(numbers []int) int {
-	
 	mNumber := len(numbers) / 2
 	return numbers[mNumber]
 }
@@ -59,18 +72,14 @@ func calculateFuelPart2(num []int, median int) int {
 func getSolutionPart2(input string) int {
 	numbers := strToIntArr(input)
 	sort.Ints(numbers) 
-	median := calcMedian(numbers)
+	meanFloor, meanCeil := calcMean(numbers)
 
-	startFuel := calculateFuelPart2(numbers, median)
-	lowest := startFuel
-
-	for i:=0;i<numbers[len(numbers)-1];i++{
-		fuel := calculateFuelPart2(numbers,i)
-		if fuel < lowest {
-				lowest = fuel
-		}
+	startFuel := calculateFuelPart2(numbers, meanFloor)
+	starFuelCeil := calculateFuelPart2(numbers, meanCeil)
+	if starFuelCeil < startFuel {
+		startFuel = starFuelCeil
 	}
-	return lowest
+	return startFuel
 
 }
 

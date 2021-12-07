@@ -25,6 +25,13 @@ func TestAOC_getSolutionPart2(t *testing.T) {
 	assert.Equal(t, expectedSolution, actualSolution)
 }
 
+func TestAOC_getSolutionPart2Real(t *testing.T) {
+	expectedSolution := 95167302
+	realInput, _ := readInput("input.txt")
+	actualSolution := getSolutionPart2(realInput)
+	assert.Equal(t, expectedSolution, actualSolution)
+}
+
 func BenchmarkPart1(b *testing.B) {
 	for n := 0; n < b.N; n++ {
 		realInput, _ := readInput("input.txt")
