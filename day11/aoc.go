@@ -5,6 +5,7 @@ import (
 	"os"
 	"strconv"
 
+	tm "github.com/buger/goterm"
 	"github.com/fatih/color"
 )
 
@@ -37,21 +38,23 @@ func parsePane(input []string) map[Point]int {
 	return pane
 }
 
-func printPane(pane map[Point]int) {
+func sprintPane(pane map[Point]int) string {
+	str := ""
 	for y:=0;y<=maxY;y++ {
 		for x:=0;x<=maxX;x++ {
 			point := Point{x: x, y:y}
 			i := pane[point] 
 			if i == 0 {
 				red := color.New(color.Bold).SprintFunc()
-				fmt.Printf("%s", red(i))
+				str += fmt.Sprintf("%s", red(i))
 			} else {
-				fmt.Printf("%d", i)
+				str += fmt.Sprintf("%d", i)
 			}
 		}
-		fmt.Printf("\n")
+		str += fmt.Sprintf("\n")
 	}
-	fmt.Printf("\n")
+	str += fmt.Sprintf("\n")
+	return str
 }
 
 func doNextStep(pane map[Point]int) {
@@ -95,13 +98,22 @@ func doExplodingStuff(pane map[Point]int, startingSum int) int {
 }
 
 func getSolutionPart1(input []string) int{
+	tm.Clear() // Clear current screen
 	sum := 0
 	pane := parsePane(input)
 	for i:=0;i<100;i++ {
 		doNextStep(pane)
 		sum += doExplodingStuff(pane, 0)
+		// time.Sleep(100 * time.Millisecond)
+		// printPane(pane)
 	}
 	return sum
+}
+
+func printPane(pane map[Point]int) {
+	tm.MoveCursor(1,1)
+	tm.Printf(sprintPane(pane))
+	tm.Flush() // Call it every time at the end of rendering
 }
 
 func checkIfAllIsExploded(pane map[Point]int) bool {
