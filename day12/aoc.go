@@ -34,24 +34,7 @@ func contains(s []string, e string) bool {
 	return false
 }
 
-func findPath(adjacentMap map[string][]string, start string, visited []string, road []string, paths *int)  {
-
-	if strings.ToLower(start) == start {
-		visited = append(visited, start)
-	}
-	road = append(road, start)
-
-	for _, a := range adjacentMap[start] {
-		if a == "end" {
-			*paths++
-			road = append(road, a)
-		} else if !contains(visited, a) {
-			findPath(adjacentMap, a, visited, road, paths)
-		}
-	}
-}
-
-func findPath2(adjacentMap map[string][]string, start string, visited []string, visitedTwice bool, road []string, paths *int)  {
+func findPath(adjacentMap map[string][]string, start string, visited []string, canVisitTwice bool, visitedTwice bool, road []string, paths *int)  {
 
 	if strings.ToLower(start) == start {
 		visited = append(visited, start)
@@ -63,9 +46,9 @@ func findPath2(adjacentMap map[string][]string, start string, visited []string, 
 			*paths++
 			road = append(road, a)
 		} else if !contains(visited, a)  {
-			findPath2(adjacentMap, a, visited, visitedTwice, road, paths)
-		} else if contains(visited, a) && !visitedTwice && a != "start" {
-			findPath2(adjacentMap, a, visited, true, road, paths)
+			findPath(adjacentMap, a, visited, canVisitTwice, visitedTwice, road, paths)
+		} else if canVisitTwice && contains(visited, a) && !visitedTwice && a != "start" {
+			findPath(adjacentMap, a, visited, canVisitTwice, true, road, paths)
 		}
 	}
 }
@@ -77,7 +60,7 @@ func getSolutionPart1(input []string) int{
 	
 	road := []string{}
 	sum := 0
-	findPath(adjacentMap, "start", visitedOnce, road, &sum)
+	findPath(adjacentMap, "start", visitedOnce, false, false, road, &sum)
 	return sum
 }
 
@@ -88,7 +71,7 @@ func getSolutionPart2(input []string) int {
 	visitedTwice := false
 	road := []string{}
 	sum := 0
-	findPath2(adjacentMap, "start", visitedOnce, visitedTwice, road, &sum)
+	findPath(adjacentMap, "start", visitedOnce, true, visitedTwice, road, &sum)
 	return sum
 }
 
