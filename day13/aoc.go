@@ -70,7 +70,7 @@ func foldUp(pane map[Point]string, fold int) map[Point]string {
 		}
 	}
 
-	maxY = fold - 1 
+	maxY = fold - 1
 
 	return newPane
 }
@@ -91,7 +91,7 @@ func foldLeft(pane map[Point]string, fold int) map[Point]string {
 }
 
 func fold(pane map[Point]string, where int, direction string) map[Point]string {
-	switch direction{
+	switch direction {
 	case "y":
 		return foldUp(pane, where)
 	case "x":
@@ -99,7 +99,6 @@ func fold(pane map[Point]string, where int, direction string) map[Point]string {
 	}
 	return pane
 }
-
 
 func printPane(pane map[Point]string) string {
 	ret := ""
@@ -126,7 +125,7 @@ func calculatePoints(pane map[Point]string) int {
 			point := Point{x: x, y: y}
 			if _, ok := pane[point]; ok {
 				sum++
-			} 
+			}
 		}
 	}
 	return sum
@@ -142,7 +141,7 @@ func getSolutionPart1(input []string) int {
 func getSolutionPart2(input []string) string {
 	pane, instructions := parsePane(input)
 	for i := range instructions {
-		pane = fold(pane, instructions[i].value, instructions[i].direction)	
+		pane = fold(pane, instructions[i].value, instructions[i].direction)
 	}
 	return printPane(pane)
 }

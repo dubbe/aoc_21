@@ -6,7 +6,7 @@ import (
 )
 
 type Line struct {
-	points []Point
+	points         []Point
 	x1, x2, y1, y2 int
 }
 
@@ -23,11 +23,11 @@ func parseLines(input string) Line {
 
 	// straight line
 	if line.x1 == line.x2 || line.y1 == line.y2 {
-		x:=line.x1
+		x := line.x1
 		for {
-			y:=line.y1
+			y := line.y1
 			for {
-				point := Point{x: x, y: y}			
+				point := Point{x: x, y: y}
 				line.points = append(line.points, point)
 				if y == line.y2 {
 					break
@@ -38,7 +38,7 @@ func parseLines(input string) Line {
 				} else {
 					y--
 				}
-				
+
 			}
 
 			if x == line.x2 {
@@ -50,17 +50,17 @@ func parseLines(input string) Line {
 			} else {
 				x--
 			}
-			
+
 		}
 	} else {
 		// diagonal line
-		x:=line.x1
-		out:
+		x := line.x1
+	out:
 		for {
-			y:=line.y1
+			y := line.y1
 			for {
-					point := Point{x: x, y: y}			
-					line.points = append(line.points, point)
+				point := Point{x: x, y: y}
+				line.points = append(line.points, point)
 
 				if y == line.y2 && x == line.x2 {
 					break out
@@ -76,18 +76,17 @@ func parseLines(input string) Line {
 					x++
 				} else {
 					x--
-				}	
+				}
 			}
 		}
 	}
 
-
 	return line
 }
 
-func getSolutionPart1(input []string) int{
+func getSolutionPart1(input []string) int {
 	lines := []Line{}
-	for _, inp := range input{
+	for _, inp := range input {
 		line := parseLines(inp)
 		lines = append(lines, line)
 	}
@@ -106,7 +105,7 @@ func getSolutionPart1(input []string) int{
 
 func getSolutionPart2(input []string) int {
 	lines := []Line{}
-	for _, inp := range input{
+	for _, inp := range input {
 		line := parseLines(inp)
 		lines = append(lines, line)
 	}
@@ -121,12 +120,12 @@ func getSolutionPart2(input []string) int {
 }
 
 func getSum(pane map[Point]int) (sum int) {
-	for _, x := range pane {	
-			if x > 1 {
-				sum++
-			}
- 	}
-	 return
+	for _, x := range pane {
+		if x > 1 {
+			sum++
+		}
+	}
+	return
 }
 
 func main() {

@@ -8,7 +8,7 @@ import (
 )
 
 func calcLanternFishes(initialNums []string, iterations int) int {
-	
+
 	lanternfishes := map[int]int{}
 	for _, num := range initialNums {
 		n, err := strconv.Atoi(num)
@@ -18,7 +18,7 @@ func calcLanternFishes(initialNums []string, iterations int) int {
 		lanternfishes[n]++
 	}
 
-	for i:=0;i<iterations;i++ {
+	for i := 0; i < iterations; i++ {
 		newLanternfishes := map[int]int{}
 		for k, f := range lanternfishes {
 			k--
@@ -39,7 +39,7 @@ func calcLanternFishes(initialNums []string, iterations int) int {
 	return sum
 }
 
-func getSolutionPart1(input string) int{
+func getSolutionPart1(input string) int {
 	return calcLanternFishes(strings.Split(input, ","), 80)
 }
 

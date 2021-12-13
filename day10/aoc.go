@@ -14,7 +14,7 @@ func parseLine(input string) string {
 	prevLen := len(input)
 	for {
 		for _, chunk := range validChunks {
-			input = strings.ReplaceAll(input, chunk, "")			
+			input = strings.ReplaceAll(input, chunk, "")
 		}
 		if prevLen == len(input) {
 			break
@@ -23,7 +23,7 @@ func parseLine(input string) string {
 	}
 
 	for _, chunk := range []string{"(", "[", "{", "<"} {
-		input = strings.ReplaceAll(input, chunk, "")			
+		input = strings.ReplaceAll(input, chunk, "")
 	}
 	if len(input) == 0 {
 		return ""
@@ -39,7 +39,7 @@ func parseLine2(input string) string {
 	prevLen := len(input)
 	for {
 		for _, chunk := range validChunks {
-			input = strings.ReplaceAll(input, chunk, "")			
+			input = strings.ReplaceAll(input, chunk, "")
 		}
 		if prevLen == len(input) {
 			break
@@ -50,7 +50,7 @@ func parseLine2(input string) string {
 
 	missingClosing := input
 	for _, chunk := range []string{"(", "[", "{", "<"} {
-		input = strings.ReplaceAll(input, chunk, "")			
+		input = strings.ReplaceAll(input, chunk, "")
 	}
 
 	if len(input) != 0 {
@@ -59,17 +59,17 @@ func parseLine2(input string) string {
 
 	missingClosing = Reverse(missingClosing)
 
-	missingClosing = strings.ReplaceAll(missingClosing, "(", ")")	
-	missingClosing = strings.ReplaceAll(missingClosing, "{", "}")	
-	missingClosing = strings.ReplaceAll(missingClosing, "[", "]")	
-	missingClosing = strings.ReplaceAll(missingClosing, "<", ">")	
+	missingClosing = strings.ReplaceAll(missingClosing, "(", ")")
+	missingClosing = strings.ReplaceAll(missingClosing, "{", "}")
+	missingClosing = strings.ReplaceAll(missingClosing, "[", "]")
+	missingClosing = strings.ReplaceAll(missingClosing, "<", ">")
 	return missingClosing
 }
 
 func Reverse(s string) string {
 	runes := []rune(s)
 	for i, j := 0, len(runes)-1; i < j; i, j = i+1, j-1 {
-			runes[i], runes[j] = runes[j], runes[i]
+		runes[i], runes[j] = runes[j], runes[i]
 	}
 	return string(runes)
 }
@@ -80,13 +80,13 @@ func calculateScore(s string) int {
 	for _, char := range s {
 		sum *= 5
 		switch char {
-			case ')': 
+		case ')':
 			sum += 1
-			case ']': 
+		case ']':
 			sum += 2
-			case '}': 
+		case '}':
 			sum += 3
-			case '>':
+		case '>':
 			sum += 4
 		}
 	}
@@ -94,18 +94,18 @@ func calculateScore(s string) int {
 	return sum
 }
 
-func getSolutionPart1(input []string) int{
+func getSolutionPart1(input []string) int {
 	sum := 0
 	for _, i := range input {
 		char := parseLine(i)
 		switch char {
-			case ")": 
+		case ")":
 			sum += 3
-			case "]": 
+		case "]":
 			sum += 57
-			case "}": 
+		case "}":
 			sum += 1197
-			case ">":
+		case ">":
 			sum += 25137
 		}
 	}

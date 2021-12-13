@@ -8,7 +8,7 @@ import (
 )
 
 func getSolutionPart1(input []string) int {
-	
+
 	flippedStrings := map[int]string{}
 
 	for x, values := range input {
@@ -42,13 +42,13 @@ func getSolutionPart1(input []string) int {
 	gamma, err := strconv.ParseInt(gammaString, 2, 64)
 	if err != nil {
 		fmt.Println(err)
-	} 
+	}
 
 	episolon, err := strconv.ParseInt(episolonString, 2, 64)
 	if err != nil {
 		fmt.Println(err)
 	}
-	
+
 	return int(gamma * episolon)
 }
 
@@ -66,11 +66,11 @@ func getSolutionPart2(input []string) (increases int) {
 	}
 
 	oxygen := input
-	
-	for i, _ := range input[0] {
+
+	for i := range input[0] {
 		newList := []string{}
 		most := getMostInColumn(oxygen, i)
-		
+
 		for _, in := range oxygen {
 			if most == string(in[i]) {
 				newList = append(newList, in)
@@ -80,8 +80,8 @@ func getSolutionPart2(input []string) (increases int) {
 	}
 
 	co2 := input
-	
-	for i, _ := range input[0] {
+
+	for i := range input[0] {
 		most := getMostInColumn(co2, i)
 		newList := []string{}
 
@@ -92,7 +92,7 @@ func getSolutionPart2(input []string) (increases int) {
 		}
 		co2 = newList
 		if len(co2) == 1 {
-			break;
+			break
 		}
 	}
 
@@ -105,7 +105,7 @@ func getSolutionPart2(input []string) (increases int) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	
+
 	return int(o * c)
 
 }

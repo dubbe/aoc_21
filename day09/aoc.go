@@ -13,7 +13,6 @@ type Point struct {
 	x, y int
 }
 
-
 var maxX = 0
 var maxY = 0
 
@@ -25,7 +24,7 @@ func parsePane(input []string) map[Point]int {
 			if err != nil {
 				fmt.Printf("ERROR")
 			}
-			point := Point{x: x, y:y}
+			point := Point{x: x, y: y}
 			pane[point] = height
 			if x > maxX {
 				maxX = x
@@ -40,15 +39,15 @@ func parsePane(input []string) map[Point]int {
 
 func checkIfLowest(point Point, height int, pane map[Point]int) bool {
 	pointsToCheck := []Point{
-		{x: point.x, y: point.y-1},
-		{x: point.x, y: point.y+1},
-		{x: point.x+1, y: point.y},
-		{x: point.x-1, y: point.y},
+		{x: point.x, y: point.y - 1},
+		{x: point.x, y: point.y + 1},
+		{x: point.x + 1, y: point.y},
+		{x: point.x - 1, y: point.y},
 	}
 
 	heighest := false
 	for _, p := range pointsToCheck {
-		if p.x >= 0 && p.y >= 0 && p.x <= maxX && p.y <= maxY  {	
+		if p.x >= 0 && p.y >= 0 && p.x <= maxX && p.y <= maxY {
 			if height >= pane[p] {
 				heighest = true
 			}
@@ -59,9 +58,9 @@ func checkIfLowest(point Point, height int, pane map[Point]int) bool {
 }
 
 func printPane(pane map[Point]int) {
-	for y:=0;y<=maxY;y++ {
-		for x:=0;x<=maxX;x++ {
-			point := Point{x: x, y:y}
+	for y := 0; y <= maxY; y++ {
+		for x := 0; x <= maxX; x++ {
+			point := Point{x: x, y: y}
 			height := pane[point]
 			if checkIfLowest(point, height, pane) {
 				red := color.New(color.FgRed).SprintFunc()
@@ -76,19 +75,19 @@ func printPane(pane map[Point]int) {
 
 func contains(s []Point, e Point) bool {
 	for _, a := range s {
-			if a == e {
-					return true
-			}
+		if a == e {
+			return true
+		}
 	}
 	return false
 }
 
 func getPointsToCheck(point Point) []Point {
 	return []Point{
-		{x: point.x, y: point.y-1},
-		{x: point.x, y: point.y+1},
-		{x: point.x+1, y: point.y},
-		{x: point.x-1, y: point.y},
+		{x: point.x, y: point.y - 1},
+		{x: point.x, y: point.y + 1},
+		{x: point.x + 1, y: point.y},
+		{x: point.x - 1, y: point.y},
 	}
 }
 
@@ -96,7 +95,7 @@ func getBasin(point Point, pane map[Point]int, foundPoints *[]Point) int {
 	sum := 1
 	*foundPoints = append(*foundPoints, point)
 	for _, p := range getPointsToCheck(point) {
-		if p.x >= 0 && p.y >= 0 && p.x <= maxX && p.y <= maxY && !contains(*foundPoints, p)  {			
+		if p.x >= 0 && p.y >= 0 && p.x <= maxX && p.y <= maxY && !contains(*foundPoints, p) {
 			if pane[p] != 9 {
 				sum += getBasin(p, pane, foundPoints)
 			}
@@ -105,7 +104,7 @@ func getBasin(point Point, pane map[Point]int, foundPoints *[]Point) int {
 	return sum
 }
 
-func getSolutionPart1(input []string) int{
+func getSolutionPart1(input []string) int {
 	sum := 0
 	pane := parsePane(input)
 
@@ -127,7 +126,7 @@ func getSolutionPart2(input []string) int {
 
 	for p, height := range pane {
 		if checkIfLowest(p, height, pane) {
-			foundPoints := []Point{}		
+			foundPoints := []Point{}
 			b := getBasin(p, pane, &foundPoints)
 			basins = append(basins, b)
 		}

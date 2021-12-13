@@ -9,14 +9,14 @@ import (
 
 type Row struct {
 	numbers []string
-	found int
+	found   int
 }
 
-type Board struct{
-	foundNumbers []string
-	verticalRows [5]Row
+type Board struct {
+	foundNumbers   []string
+	verticalRows   [5]Row
 	horizontalRows [5]Row
-	won bool 
+	won            bool
 }
 
 func parseInput(input []string) (numbers []string, boards []Board) {
@@ -24,14 +24,14 @@ func parseInput(input []string) (numbers []string, boards []Board) {
 	boards = []Board{}
 
 	boardInput := []string{}
-	for i:=2; i<len(input); i++ {
+	for i := 2; i < len(input); i++ {
 		if input[i] == "" {
 			boards = append(boards, parseBoard(boardInput))
 			boardInput = []string{}
 			continue
 		}
 		boardInput = append(boardInput, input[i])
-		
+
 	}
 	boards = append(boards, parseBoard(boardInput))
 	boardInput = []string{}
@@ -40,11 +40,11 @@ func parseInput(input []string) (numbers []string, boards []Board) {
 
 func parseBoard(input []string) Board {
 	board := Board{
-		verticalRows: [5]Row{}, 
-		horizontalRows: [5]Row{}, 
+		verticalRows:   [5]Row{},
+		horizontalRows: [5]Row{},
 	}
-	for x, inputRow := range(input) {
-		
+	for x, inputRow := range input {
+
 		numbers := strings.Fields(inputRow)
 		for y, n := range numbers {
 			board.horizontalRows[x].numbers = append(board.horizontalRows[x].numbers, n)
@@ -57,9 +57,9 @@ func parseBoard(input []string) Board {
 
 func contains(s []string, e string) bool {
 	for _, a := range s {
-			if a == e {
-					return true
-			}
+		if a == e {
+			return true
+		}
 	}
 	return false
 }
@@ -67,13 +67,13 @@ func contains(s []string, e string) bool {
 func markBoard(board *Board, num string) (won bool) {
 	won = false
 	found := false
-	
+
 	for y, horRows := range board.horizontalRows {
-		
+
 		if contains(horRows.numbers, num) {
 			found = true
 			board.foundNumbers = append(board.foundNumbers, num)
-			board.horizontalRows[y].found ++
+			board.horizontalRows[y].found++
 			if board.horizontalRows[y].found == 5 {
 				won = true
 				board.won = true
@@ -83,7 +83,7 @@ func markBoard(board *Board, num string) (won bool) {
 	if found == true {
 		for y, verRows := range board.verticalRows {
 			if contains(verRows.numbers, num) {
-				board.verticalRows[y].found ++
+				board.verticalRows[y].found++
 				if board.verticalRows[y].found == 5 {
 					won = true
 					board.won = true
@@ -106,7 +106,7 @@ func getSum(board Board, num string) int {
 	}
 
 	convertedNum, _ := strconv.Atoi(num)
-	return (unmarkedNumbersSum-convertedNum) * convertedNum
+	return (unmarkedNumbersSum - convertedNum) * convertedNum
 }
 
 func getSolutionPart1(input []string) int {
@@ -117,23 +117,20 @@ func getSolutionPart1(input []string) int {
 			won := markBoard(&boards[i], num)
 			if won == true {
 				return getSum(board, num)
-			}	
-
+			}
 
 		}
 	}
- 	return 0
+	return 0
 }
-
-
 
 func getSolutionPart2(input []string) int {
 	numbers, boards := parseInput(input)
-	
+
 	for _, num := range numbers {
 		boardsLeft := 0
 		won := false
-		winningBoard := Board{} 
+		winningBoard := Board{}
 
 		for i, board := range boards {
 			if board.won {
@@ -144,16 +141,15 @@ func getSolutionPart2(input []string) int {
 			if won {
 				winningBoard = board
 			}
-			
+
 		}
 		if boardsLeft == 1 && won {
 			return getSum(winningBoard, num)
 		}
 	}
- 	return 0
+	return 0
 
 }
-
 
 func main() {
 	if input, err := readStrings("input.txt"); err != nil {

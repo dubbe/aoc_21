@@ -8,8 +8,7 @@ import (
 	"strings"
 )
 
-
-func parseLine(input string) (map[int]string, []string)  {
+func parseLine(input string) (map[int]string, []string) {
 	inp := strings.Split(input, " | ")
 	signalPatterns := strings.Split(inp[0], " ")
 	sort.Slice(signalPatterns, func(i, j int) bool {
@@ -31,17 +30,17 @@ func parseLine(input string) (map[int]string, []string)  {
 func diff(a, b string) []string {
 	temp := map[rune]int{}
 	for _, s := range a {
-			temp[s]++
+		temp[s]++
 	}
 	for _, s := range b {
-			temp[s]--
+		temp[s]--
 	}
 
 	var result []string
 	for s, v := range temp {
-			if v != 0 {
-					result = append(result, string(s))
-			}
+		if v != 0 {
+			result = append(result, string(s))
+		}
 	}
 	return result
 }
@@ -53,11 +52,11 @@ func (r ByRune) Swap(i, j int)      { r[i], r[j] = r[j], r[i] }
 func (r ByRune) Less(i, j int) bool { return r[i] < r[j] }
 
 func StringToRuneSlice(s string) []rune {
-      var r []rune
-      for _, runeValue := range s {
-              r = append(r, runeValue)
-      }
-      return r
+	var r []rune
+	for _, runeValue := range s {
+		r = append(r, runeValue)
+	}
+	return r
 }
 
 func SortStringByCharacter(s string) string {
@@ -68,7 +67,7 @@ func SortStringByCharacter(s string) string {
 
 func parseSignalPatterns(signalPatterns map[int]string) map[int]string {
 	var c, f string
-	
+
 	ints := map[int]string{}
 	ints[1] = signalPatterns[0]
 	ints[7] = signalPatterns[1]
@@ -90,7 +89,7 @@ func parseSignalPatterns(signalPatterns map[int]string) map[int]string {
 	}
 
 	for _, s := range signalPatterns {
-		
+
 		if !strings.Contains(s, c) {
 			if len(s) == 5 {
 				ints[5] = s
@@ -106,7 +105,7 @@ func parseSignalPatterns(signalPatterns map[int]string) map[int]string {
 		}
 	}
 	for _, s := range signalPatterns {
-		
+
 		if len(s) == 6 && s != ints[6] {
 			diff := diff(s, ints[5])
 			if len(diff) == 1 && diff[0] == c {
@@ -124,7 +123,7 @@ func parseSignalPatterns(signalPatterns map[int]string) map[int]string {
 				found = true
 				continue
 			}
-			
+
 		}
 		if !found {
 			ints[3] = s
@@ -146,7 +145,7 @@ func twistIt(signalPatterns map[int]string) (newSignalPatterns map[string]int) {
 
 // }
 
-func getSolutionPart1(input []string) int{
+func getSolutionPart1(input []string) int {
 	sum := 0
 	for _, line := range input {
 		_, outputValues := parseLine(line)
@@ -169,7 +168,7 @@ func getSolutionPart2(input []string) int {
 		for _, ov := range outputValues {
 			parsedSum = fmt.Sprintf("%s%d", parsedSum, parsedSignalPatterns[ov])
 		}
-		iSum, _ := strconv.Atoi(parsedSum) 
+		iSum, _ := strconv.Atoi(parsedSum)
 		sum += iSum
 	}
 
