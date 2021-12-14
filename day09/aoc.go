@@ -5,8 +5,6 @@ import (
 	"os"
 	"sort"
 	"strconv"
-
-	"github.com/fatih/color"
 )
 
 type Point struct {
@@ -53,24 +51,7 @@ func checkIfLowest(point Point, height int, pane map[Point]int) bool {
 			}
 		}
 	}
-
 	return !heighest
-}
-
-func printPane(pane map[Point]int) {
-	for y := 0; y <= maxY; y++ {
-		for x := 0; x <= maxX; x++ {
-			point := Point{x: x, y: y}
-			height := pane[point]
-			if checkIfLowest(point, height, pane) {
-				red := color.New(color.FgRed).SprintFunc()
-				fmt.Printf("%s", red(height))
-			} else {
-				fmt.Printf("%d", height)
-			}
-		}
-		fmt.Printf("\n")
-	}
 }
 
 func contains(s []Point, e Point) bool {
@@ -107,8 +88,6 @@ func getBasin(point Point, pane map[Point]int, foundPoints *[]Point) int {
 func getSolutionPart1(input []string) int {
 	sum := 0
 	pane := parsePane(input)
-
-	printPane(pane)
 
 	for p, height := range pane {
 		if checkIfLowest(p, height, pane) {
