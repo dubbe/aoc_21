@@ -57,8 +57,8 @@ func getSolutionPart1(input string) int {
 	y1, y2 = maxMin(sy1, sy2)
 
 	maxY := 0
-	for startX := 0; startX < 100; startX++ {
-		for startY := 0; startY < 100; startY++ {
+	for startX := 0; startX < x2; startX++ {
+		for startY := 0; startY < y2*-1; startY++ {
 			_, max := testTrajectory(startX, startY, x1, x2, y1, y2)
 			maxY, _ = maxMin(maxY, max)
 		}
