@@ -8,4 +8,4 @@ FROM mcr.microsoft.com/dotnet/runtime:6.0
 WORKDIR /app
 COPY --from=build-env /app/out .
 COPY input.txt ../.
-ENTRYPOINT [ "dotnet", "aoc.dll" ]
+ENTRYPOINT [ "time", "dotnet", "aoc.dll" ]

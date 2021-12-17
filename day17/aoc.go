@@ -89,7 +89,6 @@ func getSolutionPart2(input string) int {
 }
 
 func main() {
-
 	if os.Getenv("part") == "part2" {
 		fmt.Println(getSolutionPart2(input))
 	} else {
