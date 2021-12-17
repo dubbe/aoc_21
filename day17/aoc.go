@@ -19,7 +19,7 @@ func maxMin(a, b int) (int, int) {
 func testTrajectory(x, y, x1, x2, y1, y2 int) (bool, int) {
 
 	xPos, yPos := 0, 0
-	i := 0
+	// i := 0
 	maxY := 0
 	for {
 		xPos += x
@@ -41,11 +41,11 @@ func testTrajectory(x, y, x1, x2, y1, y2 int) (bool, int) {
 			return false, 0
 		}
 
-		// Failguard
-		i++
-		if i > 10000 {
-			return false, 0
-		}
+		// // Failguard
+		// i++
+		// if i > 10000 {
+		// 	return false, 0
+		// }
 	}
 	return false, 0
 }
@@ -69,12 +69,13 @@ func getSolutionPart1(input string) int {
 func getSolutionPart2(input string) int {
 	var sx1, sx2, sy1, sy2, x1, x2, y1, y2 int
 	fmt.Sscanf(input, "target area: x=%d..%d, y=%d..%d", &sx1, &sx2, &sy1, &sy2)
+	
 	x2, x1 = maxMin(sx1, sx2)
 	y1, y2 = maxMin(sy1, sy2)
-
+	
 	hits := 0
-	for startX := -1000; startX < 1000; startX++ {
-		for startY := -1000; startY < 1000; startY++ {
+	for startX := 0; startX <= x2; startX++ {
+		for startY := y2; startY < 1000; startY++ {
 			found, _ := testTrajectory(startX, startY, x1, x2, y1, y2)
 			if found {
 				hits++

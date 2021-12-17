@@ -1,9 +1,15 @@
 package main
 
 import (
+	_ "embed"
 	"fmt"
 	"os"
+	"strconv"
+	"strings"
 )
+
+//go:embed input.txt
+var input string
 
 func getSolutionPart1(input []int) (increases int) {
 	for i := 1; i < len(input); i++ {
@@ -24,13 +30,15 @@ func getSolutionPart2(input []int) (increases int) {
 }
 
 func main() {
-	if input, err := readInts("input.txt"); err != nil {
-		panic("could not read file")
-	} else {
-		if os.Getenv("part") == "part2" {
-			fmt.Println(getSolutionPart2(input))
-		} else {
-			fmt.Println(getSolutionPart1(input))
-		}
+	inp := strings.Split(input, "\n")
+	ints := []int{}
+	for i, s := range inp {
+    ints[i], _ = strconv.Atoi(s)
 	}
+	if os.Getenv("part") == "part2" {
+		fmt.Println(getSolutionPart2(ints))
+	} else {
+		fmt.Println(getSolutionPart1(ints))
+	}
+
 }

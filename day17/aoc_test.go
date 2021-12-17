@@ -37,6 +37,18 @@ func TestAOC_getSolutionPart2(t *testing.T) {
 	assert.Equal(t, expectedSolution, actualSolution)
 }
 
+func TestAOC_getSolutionPart1real(t *testing.T) {
+	expectedSolution := 4278
+	actualSolution := getSolutionPart1(input)
+	assert.Equal(t, expectedSolution, actualSolution)
+}
+
+func TestAOC_getSolutionPart2real(t *testing.T) {
+	expectedSolution := 1994
+	actualSolution := getSolutionPart2(input)
+	assert.Equal(t, expectedSolution, actualSolution)
+}
+
 func BenchmarkPart1(b *testing.B) {
 	for n := 0; n < b.N; n++ {
 		getSolutionPart1(input)
