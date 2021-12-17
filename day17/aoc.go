@@ -68,20 +68,23 @@ func getSolutionPart1(input string) int {
 
 func getSolutionPart2(input string) int {
 	var sx1, sx2, sy1, sy2, x1, x2, y1, y2 int
-	fmt.Sscanf(input, "target area: x=%d..%d, y=%d..%d", &sx1, &sx2, &sy1, &sy2)
+	fmt.Sscanf(input, "target area: x=%d..%d, y=%d..%d\n", &sx1, &sx2, &sy1, &sy2)
 	
 	x2, x1 = maxMin(sx1, sx2)
 	y1, y2 = maxMin(sy1, sy2)
 	
 	hits := 0
+	maxStarty := -1000
 	for startX := 0; startX <= x2; startX++ {
-		for startY := y2; startY < 1000; startY++ {
+		for startY := y2; startY < y2*-1; startY++ {
 			found, _ := testTrajectory(startX, startY, x1, x2, y1, y2)
 			if found {
+				maxStarty, _ = maxMin(maxStarty, startY)
 				hits++
 			}
 		}
 	}
+
 	return hits
 }
 
