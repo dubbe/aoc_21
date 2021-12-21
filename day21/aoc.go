@@ -40,21 +40,18 @@ func getSolutionPart1(input string) int {
 	for {
 		rolls := []int{i, i+1, i+2}
 		move := rolls[0] + rolls[1] + rolls[2]
-		fmt.Printf("i: %d, move: %d\n", i, move)
 		turn++
 		i+=3
 		if turn%2 == 1 {
 			board1 = board1.Move(move)
 			playerOnePoints += board1.Value.(int)
 			if playerOnePoints >= 1000 {
-				fmt.Printf("%d*%d\n", i-1, playerTwoPoints)
 				return (i-1)*playerTwoPoints
 			}
 		} else {
 			board2 = board2.Move(move)
 			playerTwoPoints += board2.Value.(int)
 			if playerTwoPoints >= 1000 {
-				fmt.Printf("%d*%d\n", i-1, playerOnePoints)
 				return (i-1)*playerOnePoints
 			}
 		}	
